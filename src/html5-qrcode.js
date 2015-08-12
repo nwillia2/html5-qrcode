@@ -1,7 +1,13 @@
 (function($) {
     jQuery.fn.extend({
-        html5_qrcode: function(qrcodeSuccess, qrcodeError, videoError) {
+        html5_qrcode: function(options) {
             return this.each(function() {
+                // options
+                var qrcodeSuccess = options.qrcodeSuccess;
+                var qrcodeError = options.qrcodeError;
+                var videoError = options.videoError;
+                var scanInterval = options.scanInterval || 100;
+                
                 var currentElem = $(this);
 
                 var height = currentElem.height();
@@ -33,10 +39,10 @@
                             qrcodeError(e, localMediaStream);
                         }
 
-                        $.data(currentElem[0], "timeout", setTimeout(scan, 500));
+                        $.data(currentElem[0], "timeout", setTimeout(scan, scanInterval));
 
                     } else {
-                        $.data(currentElem[0], "timeout", setTimeout(scan, 500));
+                        $.data(currentElem[0], "timeout", setTimeout(scan, scanInterval));
                     }
                 };//end snapshot function
 
