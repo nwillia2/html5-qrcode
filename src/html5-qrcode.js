@@ -76,7 +76,10 @@
         html5_qrcode_stop: function() {
             return this.each(function() {
                 //stop the stream and cancel timeouts
-                $(this).data('stream').stop();
+                $(this).data('stream').getVideoTracks().forEach(function(videoTrack) {
+                    videoTrack.stop();
+                });
+
                 clearTimeout($(this).data('timeout'));
             });
         }
